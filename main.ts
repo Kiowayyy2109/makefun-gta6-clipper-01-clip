@@ -169,7 +169,11 @@ function productionDuty(source: string): void {
   if (run.status !== 0) throw new Error(`ffmpeg render failed (${run.status})`);
   const cover = spawnSync(
     "ffmpeg",
-    ["-y", "-ss", "36", "-i", clipPath, "-frames:v", "1", "-q:v", "3", join(renderDir, "cover.jpg")],
+    [
+      "-y", "-ss", "36", "-i", clipPath,
+      "-frames:v", "1", "-q:v", "3", "-update", "1",
+      join(renderDir, "cover.jpg"),
+    ],
     { stdio: "inherit" },
   );
   if (cover.status !== 0) throw new Error(`ffmpeg cover failed (${cover.status})`);
